@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ice777 - Play & Win</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FitSphere | Gym & Health</title>
 
   <style>
     * {
@@ -12,287 +13,962 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('picture/background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      text-align: center;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, #1f3d32 0%, #101815 38%, #080c0a 100%);
+      color: white;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: -1;
-    }
+    /* ================= HEADER ================= */
 
-    .container {
-      padding: 60px 20px;
+    header {
+      width: 100%;
+      padding: 20px 7%;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      position: relative;
-      z-index: 1;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+
+      background: rgba(8, 12, 10, 0.78);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .logo {
-      width: 180px;
-      margin-bottom: 20px;
+      font-size: 27px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    .language-selector {
-      margin-bottom: 30px;
+    .logo span {
+      color: #65e397;
     }
 
-    .language-label {
-      font-size: 16px;
-      margin-bottom: 8px;
+    nav a {
+      color: #d5ded9;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 15px;
     }
 
-    .language-selector select {
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      border: none;
-      background: #fff;
-      color: #333;
+    nav a:hover {
+      color: #65e397;
     }
 
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    /* ================= MAIN PAGE ================= */
+
+    #mainPage {
+      display: block;
     }
 
-    p {
-      font-size: 20px;
-      max-width: 600px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    .btn-row {
+    .hero {
+      min-height: 720px;
+      padding: 140px 7% 80px;
       display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+      align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
     }
 
-    .whatsapp-btn,
-    .register-btn {
-      display: inline-flex;
+    .hero-container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
       align-items: center;
-      padding: 15px 25px;
+    }
+
+    .hero-text h1 {
+      font-size: 62px;
+      line-height: 1.05;
+      margin-bottom: 25px;
+    }
+
+    .hero-text h1 span {
+      color: #65e397;
+    }
+
+    .hero-text p {
       font-size: 18px;
-      border-radius: 50px;
+      line-height: 1.8;
+      color: #b9c6bf;
+      max-width: 580px;
+    }
+
+    .main-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #65e397, #28b967);
+      color: #07130c;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
-      transition: background 0.3s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    .whatsapp-btn {
-      background-color: #25D366;
-      color: white;
+    .main-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(101,227,151,0.28);
     }
 
-    .whatsapp-btn:hover {
-      background-color: #1ebe5d;
+    /* ================= 3D HERO ================= */
+
+    .scene {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .whatsapp-btn img {
-      width: 24px;
-      height: 24px;
-      margin-right: 10px;
+    .cube-wrapper {
+      width: 330px;
+      height: 330px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: floatBox 5s ease-in-out infinite;
     }
 
-    .register-btn {
-      background-color: #ff0000;
-      color: white;
+    .big-card {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(101,227,151,0.25),
+          rgba(255,255,255,0.05)
+        );
+
+      border: 1px solid rgba(101,227,151,0.35);
+      border-radius: 35px;
+
+      backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 35px 70px rgba(0,0,0,0.45),
+        inset 0 1px 1px rgba(255,255,255,0.2);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      transform: rotateY(-15deg) rotateX(8deg);
     }
 
-    .register-btn:hover {
-      background-color: #cc0000;
+    .big-icon {
+      font-size: 100px;
+      filter: drop-shadow(0 20px 15px rgba(0,0,0,0.4));
     }
 
-    .payment-methods {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 20px 30px;
-      border-radius: 15px;
-      margin-top: 40px;
-      max-width: 400px;
-      text-align: left;
+    .big-card h3 {
+      font-size: 28px;
+      margin-top: 25px;
     }
 
-    .payment-methods h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: #fff;
+    .big-card p {
+      margin-top: 8px;
+      color: #c2cec7;
+    }
+
+    @keyframes floatBox {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    /* ================= SERVICES ================= */
+
+    .services {
+      padding: 80px 7% 110px;
+    }
+
+    .section-title {
       text-align: center;
+      margin-bottom: 55px;
     }
 
-    .payment-methods ul {
-      list-style: none;
-      padding-left: 0;
-      color: #fff;
-      font-size: 18px;
+    .section-title h2 {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: #9eaaa3;
+    }
+
+    .card-container {
+      max-width: 1150px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+
+      perspective: 1200px;
+    }
+
+    .card {
+      min-height: 360px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.09),
+          rgba(255,255,255,0.03)
+        );
+
+      border: 1px solid rgba(255,255,255,0.10);
+
+      border-radius: 25px;
+      padding: 35px 28px;
+
+      box-shadow:
+        0 25px 50px rgba(0,0,0,0.30),
+        inset 0 1px 1px rgba(255,255,255,0.1);
+
+      transform-style: preserve-3d;
+      transition: 0.45s;
+    }
+
+    .card:hover {
+      transform:
+        rotateX(6deg)
+        rotateY(-6deg)
+        translateY(-12px);
+
+      border-color: rgba(101,227,151,0.45);
+
+      box-shadow:
+        20px 30px 60px rgba(0,0,0,0.45),
+        -5px -5px 30px rgba(101,227,151,0.06);
+    }
+
+    .icon-box {
+      width: 75px;
+      height: 75px;
+
+      background: linear-gradient(135deg, #65e397, #269d5b);
+
+      border-radius: 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 37px;
+
+      margin-bottom: 28px;
+
+      box-shadow:
+        0 15px 25px rgba(26,154,83,0.30);
+
+      transform: translateZ(35px);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 14px;
+      transform: translateZ(25px);
+    }
+
+    .card p {
+      color: #aeb9b3;
+      line-height: 1.7;
+      font-size: 15px;
+      transform: translateZ(18px);
+    }
+
+    .learn-btn {
+      margin-top: 25px;
+      border: none;
+      background: transparent;
+      color: #65e397;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .learn-btn:hover {
+      color: white;
+    }
+
+    /* ================= DETAIL PAGE ================= */
+
+    .detail-page {
+      display: none;
+      min-height: 100vh;
+      padding: 130px 7% 80px;
+    }
+
+    .detail-wrapper {
+      max-width: 950px;
+      margin: auto;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.09),
+          rgba(255,255,255,0.03)
+        );
+
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 30px;
+      padding: 50px;
+
+      box-shadow: 0 35px 70px rgba(0,0,0,0.35);
+    }
+
+    .detail-icon {
+      width: 90px;
+      height: 90px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: linear-gradient(135deg, #65e397, #269d5b);
+      border-radius: 25px;
+
+      font-size: 45px;
+      margin-bottom: 30px;
+
+      box-shadow: 0 18px 35px rgba(38,157,91,0.3);
+    }
+
+    .detail-wrapper h1 {
+      font-size: 45px;
+      margin-bottom: 18px;
+    }
+
+    .detail-wrapper > p {
+      color: #b8c2bc;
+      font-size: 17px;
       line-height: 1.8;
     }
 
-    .footer {
-      margin-top: 60px;
-      font-size: 14px;
-      color: #ccc;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    .detail-grid {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 32px;
+    .detail-box {
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 25px;
+      border-radius: 18px;
+    }
+
+    .detail-box h3 {
+      color: #65e397;
+      margin-bottom: 10px;
+    }
+
+    .detail-box p {
+      color: #9facA5;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      padding: 14px 28px;
+
+      border: none;
+      border-radius: 9px;
+
+      background: #65e397;
+      color: #07130c;
+
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ================= CTA ================= */
+
+    .cta {
+      text-align: center;
+      margin: 0 7% 80px;
+      padding: 65px 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(47,184,103,0.25),
+          rgba(101,227,151,0.08)
+        );
+
+      border: 1px solid rgba(101,227,151,0.20);
+      border-radius: 30px;
+    }
+
+    .cta h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #b4c0b9;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      color: #718078;
+      font-size: 14px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media(max-width: 900px) {
+
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
-      p {
-        font-size: 16px;
+      .hero-text p {
+        margin: auto;
       }
 
-      .whatsapp-btn,
-      .register-btn {
-        font-size: 16px;
-        padding: 12px 20px;
-        width: 100%;
-        justify-content: center;
+      .hero-text h1 {
+        font-size: 45px;
       }
 
-      .whatsapp-btn img {
-        width: 20px;
-        height: 20px;
+      .card-container {
+        grid-template-columns: 1fr;
       }
 
-      .logo {
-        width: 140px;
+      .detail-grid {
+        grid-template-columns: 1fr;
       }
 
-      .language-selector select {
-        font-size: 14px;
-        padding: 8px 16px;
+      .cube-wrapper {
+        width: 280px;
+        height: 280px;
+      }
+    }
+
+    @media(max-width: 600px) {
+
+      header {
+        flex-direction: column;
+        gap: 10px;
       }
 
-      .language-label {
-        font-size: 14px;
+      nav a {
+        margin: 0 7px;
+        font-size: 13px;
       }
 
-      .payment-methods {
-        font-size: 16px;
-        padding: 15px 20px;
+      .hero {
+        padding-top: 160px;
       }
 
-      .payment-methods h2 {
-        font-size: 20px;
+      .hero-text h1 {
+        font-size: 37px;
       }
 
-      .payment-methods ul {
-        font-size: 16px;
+      .detail-wrapper {
+        padding: 30px 22px;
+      }
+
+      .detail-wrapper h1 {
+        font-size: 35px;
       }
     }
   </style>
 </head>
 
+
 <body>
-  <div class="container">
-    <img src="logo/logo.png" alt="Ice777 Logo" class="logo" />
 
-    <div class="language-selector">
-      <div class="language-label">FOR !D Message on WhatsApp</div>
-      <select onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="hi">हिन्दी</option>
-        <option value="kn">ಕನ್ನಡ</option>
-        <option value="ta">தமிழ்</option>
-        <option value="te">తెలుగు</option>
-      </select>
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo">
+      Fit<span>Sphere</span>
     </div>
 
-    <h1 id="headline">Welcome to Ice777</h1>
-    <p id="subtext">Fast deposits, instant withdrawals, and non-stop gaming action.<br>Join now and feel the thrill of Ice777!</p>
+    <nav>
+      <a href="#" onclick="openHome()">Home</a>
+      <a href="#services">Explore</a>
+      <a href="#about">About</a>
+    </nav>
 
-    <!-- Button Row -->
-    <div class="btn-row">
-      <a
-        class="whatsapp-btn"
-        id="whatsappLink"
-        href="https://wa.me/+447990181958?text=Hi%20I'm%20interested%20in%20Ice777"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" />
-        Chat on WhatsApp
+  </header>
+
+
+  <!-- ================= MAIN PAGE ================= -->
+
+  <main id="mainPage">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-container">
+
+        <div class="hero-text">
+
+          <h1>
+            A Better Space For
+            <span>Fitness & Wellness.</span>
+          </h1>
+
+          <p>
+            Explore fitness, movement and everyday wellness through
+            a modern experience designed around active and balanced living.
+          </p>
+
+          <a href="#services" class="main-btn">
+            Explore Activities
+          </a>
+
+        </div>
+
+
+        <!-- 3D OBJECT -->
+
+        <div class="scene">
+
+          <div class="cube-wrapper">
+
+            <div class="big-card">
+
+              <div class="big-icon">
+                🏋️
+              </div>
+
+              <h3>Stay Active</h3>
+
+              <p>
+                Fitness • Movement • Wellness
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CARDS -->
+
+    <section class="services" id="services">
+
+      <div class="section-title">
+
+        <h2>Explore Your Routine</h2>
+
+        <p>
+          Select an activity to discover more information.
+        </p>
+
+      </div>
+
+
+      <div class="card-container">
+
+        <!-- Card 1 -->
+
+        <div class="card">
+
+          <div class="icon-box">
+            🏋️
+          </div>
+
+          <h3>Gym Training</h3>
+
+          <p>
+            Discover strength-focused activities and structured
+            training ideas for an active fitness routine.
+          </p>
+
+          <button
+            class="learn-btn"
+            onclick="openDetails('gym')"
+          >
+            Learn More →
+          </button>
+
+        </div>
+
+
+        <!-- Card 2 -->
+
+        <div class="card">
+
+          <div class="icon-box">
+            🏃
+          </div>
+
+          <h3>Active Lifestyle</h3>
+
+          <p>
+            Explore simple ways to include more movement and
+            recreational activities in everyday life.
+          </p>
+
+          <button
+            class="learn-btn"
+            onclick="openDetails('active')"
+          >
+            Learn More →
+          </button>
+
+        </div>
+
+
+        <!-- Card 3 -->
+
+        <div class="card">
+
+          <div class="icon-box">
+            🥗
+          </div>
+
+          <h3>Healthy Habits</h3>
+
+          <p>
+            Explore general wellness information focused on
+            balanced everyday routines.
+          </p>
+
+          <button
+            class="learn-btn"
+            onclick="openDetails('health')"
+          >
+            Learn More →
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta" id="about">
+
+      <h2>
+        Move. Explore. Feel Good.
+      </h2>
+
+      <p>
+        Discover simple fitness and wellness information
+        designed for everyday living.
+      </p>
+
+      <a href="#services" class="main-btn">
+        Start Exploring
       </a>
 
-      <a
-        class="register-btn"
-        href="https://wa.me/+447990181958?text=Hi%20I'm%20interested%20in%20Ice777"
-        target="_blank"
-      >
-        Register Now
-      </a>
+    </section>
+
+
+    <footer>
+      © 2026 FitSphere. All Rights Reserved.
+    </footer>
+
+  </main>
+
+
+  <!-- ================= GYM DETAIL ================= -->
+
+  <section class="detail-page" id="gymPage">
+
+    <div class="detail-wrapper">
+
+      <div class="detail-icon">
+        🏋️
+      </div>
+
+      <h1>
+        Gym Training
+      </h1>
+
+      <p>
+        Gym training can include strength exercises,
+        mobility activities and general fitness sessions.
+        Different routines can be explored based on interests,
+        comfort and experience.
+      </p>
+
+
+      <div class="detail-grid">
+
+        <div class="detail-box">
+
+          <h3>Strength Activities</h3>
+
+          <p>
+            Explore controlled resistance-based movements
+            focused on different muscle groups.
+          </p>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <h3>Mobility</h3>
+
+          <p>
+            Movement and flexibility activities can be included
+            as part of a balanced fitness routine.
+          </p>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <h3>Training Routine</h3>
+
+          <p>
+            Organize fitness activities around a schedule
+            that works comfortably with everyday life.
+          </p>
+
+        </div>
+
+
+        <div class="detail-box">
+
+          <h3>Rest & Recovery</h3>
+
+          <p>
+            Recovery and rest are useful parts of maintaining
+            a balanced activity routine.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button class="back-btn" onclick="openHome()">
+        ← Back to Home
+      </button>
+
     </div>
 
-    <!-- Payment Methods Section -->
-    <div class="payment-methods">
-      <h2>💳 Payment Methods</h2>
-      <ul>
-        <li>🏦 Net Banking</li>
-        <li>📲 UPI Payments</li>
-        <li>💳 Direct Bank Transfers</li>
-      </ul>
+  </section>
+
+
+  <!-- ================= ACTIVE DETAIL ================= -->
+
+  <section class="detail-page" id="activePage">
+
+    <div class="detail-wrapper">
+
+      <div class="detail-icon">
+        🏃
+      </div>
+
+      <h1>
+        Active Lifestyle
+      </h1>
+
+      <p>
+        Staying active can involve many forms of everyday movement.
+        Activities can be selected according to personal interests
+        and available time.
+      </p>
+
+
+      <div class="detail-grid">
+
+        <div class="detail-box">
+          <h3>Walking</h3>
+          <p>
+            Walking can be a simple way to include movement
+            in an everyday routine.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Recreational Sports</h3>
+          <p>
+            Explore enjoyable sports and recreational
+            activities with friends or groups.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Daily Movement</h3>
+          <p>
+            Small opportunities for movement can be included
+            throughout the day.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Flexible Activities</h3>
+          <p>
+            Choose activities that fit comfortably with
+            your interests and routine.
+          </p>
+        </div>
+
+      </div>
+
+
+      <button class="back-btn" onclick="openHome()">
+        ← Back to Home
+      </button>
+
     </div>
 
-    <div class="footer">
-      © 2025 Ice777. All rights reserved.
+  </section>
+
+
+  <!-- ================= HEALTH DETAIL ================= -->
+
+  <section class="detail-page" id="healthPage">
+
+    <div class="detail-wrapper">
+
+      <div class="detail-icon">
+        🥗
+      </div>
+
+      <h1>
+        Healthy Habits
+      </h1>
+
+      <p>
+        Everyday wellness can include balanced meals,
+        regular movement, hydration, sleep and time for rest.
+      </p>
+
+
+      <div class="detail-grid">
+
+        <div class="detail-box">
+          <h3>Balanced Choices</h3>
+          <p>
+            Explore a varied selection of foods as part
+            of an everyday eating routine.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Hydration</h3>
+          <p>
+            Regular hydration can form part of an everyday
+            wellness routine.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Daily Movement</h3>
+          <p>
+            Choose enjoyable physical activities that
+            fit into your routine.
+          </p>
+        </div>
+
+        <div class="detail-box">
+          <h3>Rest</h3>
+          <p>
+            Maintaining time for sleep and rest can support
+            a balanced daily routine.
+          </p>
+        </div>
+
+      </div>
+
+
+      <button class="back-btn" onclick="openHome()">
+        ← Back to Home
+      </button>
+
     </div>
-  </div>
+
+  </section>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
 
   <script>
-    function changeLanguage(lang) {
-      const content = {
-        en: {
-          title: "Welcome to Ice777",
-          desc: "Fast deposits, instant withdrawals, and non-stop gaming action.<br>Join now and feel the thrill of Ice777!",
-          wa: "Hi, I'm interested in Ice777"
-        },
-        hi: {
-          title: "Ice777 में आपका स्वागत है",
-          desc: "तेज़ जमा, त्वरित निकासी, और नॉन-स्टॉप गेमिंग एक्शन।<br>अब जुड़ें और Ice777 का रोमांच महसूस करें!",
-          wa: "नमस्ते, मैं Ice777 में रुचि रखता हूँ"
-        },
-        kn: {
-          title: "Ice777 ಗೆ ಸುಸ್ವಾಗತ",
-          desc: "ತ್ವರಿತ ಠೇವಣಿ, ತಕ್ಷಣ ಹಣ ಹಿಂಪಡೆದು ಮತ್ತು ನಿಲ್ಲದ ಆಟದ ಮೋಜು.<br>ಈಗ ಸೇರಿ ಮತ್ತು ರೋಚಕತೆಯನ್ನು ಅನುಭವಿಸಿ!",
-          wa: "ನಮಸ್ಕಾರ, ನಾನು Ice777 ಆಸಕ್ತನಾಗಿದ್ದೇನೆ"
-        },
-        ta: {
-          title: "Ice777-க்கு வரவேற்கிறோம்",
-          desc: "விரைவு வைப்பு, உடனடி பணம் எடுத்தல், இடைவிலையில்லா விளையாட்டு சாகசம்.<br>இப்போதே சேருங்கள்!",
-          wa: "வணக்கம், Ice777-ல் எனக்கு ஆர்வம் உள்ளது"
-        },
-        te: {
-          title: "Ice777కి స్వాగతం",
-          desc: "త్వరిత డిపాజిట్లు, తక్షణ ఉపసంహరణలు, ఆగని గేమింగ్ మోజు.<br>ఇప్పుడే చేరండి!",
-          wa: "హాయ్, నాకు Ice777పై ఆసక్తి ఉంది"
-        }
-      };
 
-      document.getElementById("headline").innerHTML = content[lang].title;
-      document.getElementById("subtext").innerHTML = content[lang].desc;
+    function openDetails(type) {
 
-      const encodedMessage = encodeURIComponent(content[lang].wa);
-      document.getElementById("whatsappLink").href = `https://wa.me/+447990181958?text=${encodedMessage}`;
+      document.getElementById("mainPage").style.display = "none";
+
+      document.getElementById("gymPage").style.display = "none";
+      document.getElementById("activePage").style.display = "none";
+      document.getElementById("healthPage").style.display = "none";
+
+
+      if (type === "gym") {
+        document.getElementById("gymPage").style.display = "block";
+      }
+
+      if (type === "active") {
+        document.getElementById("activePage").style.display = "block";
+      }
+
+      if (type === "health") {
+        document.getElementById("healthPage").style.display = "block";
+      }
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
+
+
+    function openHome() {
+
+      document.getElementById("gymPage").style.display = "none";
+      document.getElementById("activePage").style.display = "none";
+      document.getElementById("healthPage").style.display = "none";
+
+      document.getElementById("mainPage").style.display = "block";
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
   </script>
+
 </body>
 </html>
